@@ -1,9 +1,11 @@
 package com.project.ecommerce.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 @Entity
 @Table(name = "orders")
@@ -16,4 +18,18 @@ public class Order {
     private LocalDate dateCreated;
 
     private String status;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "pk.order")
+//    @Valid
+    private List<OrderProduct> orderProducts = new ArrayList<>();
+
+    @Transient
+    public Double getTotalOrderPrice() {
+        double sum = 0D;
+        List<OrderProduct> orderProducts = getOrderProducts();
+        for (OrderProduct op : orderProducts) {
+            sum += op.getTotalPrice();
+        }
+        return sum;
 }
