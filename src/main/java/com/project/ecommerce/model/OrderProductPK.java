@@ -22,5 +22,22 @@ public class OrderProductPK implements Serializable {
 
     // standard getters and setters
 
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+
     // hashcode() and equals() methods
 }
